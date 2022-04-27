@@ -1,0 +1,12 @@
+.header {
+  top: 0;
+  position: sticky;
+  background: linear-gradient(90deg, #3951E7 20.77%, #832AB9 91.64%);
+}
+
+.headerContent {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

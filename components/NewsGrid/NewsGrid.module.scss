@@ -1,0 +1,13 @@
+.grid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  margin: -15px;
+}
+
+.item {
+  width: 33.33%;
+  height: 100%;
+  padding: 16px;
+}
