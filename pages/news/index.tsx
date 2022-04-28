@@ -9,9 +9,10 @@ import {INewsResponseList} from "../../interfaces/INewsResponse";
 import {loadNews} from "../../helpers/queries";
 import {langSlice} from "../../store/reducers/langSlice";
 import {INews} from "../../interfaces/INews";
-import NewsCard from "../../components/NewsCard/NewsCard";
+import Link from "next/link";
 import {iNewsResponsItemTOiNews} from "../../helpers/functions";
 import NewsGridPreload from "../../components/NewsGridPreload";
+import NewsCard from "../../components/NewsCard/NewsCard";
 
 type NewsProps = {
     newsServ: INewsResponseList | null,
@@ -41,10 +42,14 @@ const News: NextPage<NewsProps> = ({newsServ, langId}: NewsProps) => {
                 &&
                 <NewsGrid>
                     {actualNews.map((i: INews) => (
-                        <NewsCard
-                            key={i.id}
-                            news={i}
-                        />
+                        <Link href={`/news/${i.id}`}>
+                            <a>
+                                <NewsCard
+                                    key={i.id}
+                                    news={i}
+                                />
+                            </a>
+                        </Link>
                     ))}
                 </NewsGrid>
                 || <NewsGridPreload />}

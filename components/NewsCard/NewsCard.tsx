@@ -29,15 +29,15 @@ const NewsCard: React.FC<NewsProps> = ({news}: NewsProps) => {
     const {imageUrl, date, preview, title} = news
     const [y, m, d] = date.split(' ')[0].split('-')
     return(
-        <article className={styles.card}>
-            <div className={styles.image}>
+        <span className={styles.card}>
+            <span className={styles.image}>
                 <Image src={imageUrl} width={500} height={500} layout={'raw'} />
-            </div>
-            <div className={styles.desc}>
+            </span>
+            <span className={styles.desc}>
                 <time className={styles.date}>{`${d} ${month[Number.parseInt(m)]} ${y}`}</time>
-                <div className={styles.preview}>{preview ? Parser(preview) : title}</div>
-            </div>
-        </article>
+                <span className={styles.preview}>{preview ? preview.replace(/<[^>]+>/g, '') : title}</span>
+            </span>
+        </span>
     )
 }
 
