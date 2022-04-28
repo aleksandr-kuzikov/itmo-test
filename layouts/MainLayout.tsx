@@ -5,7 +5,7 @@ type Props = {
     children: React.ReactNode
 }
 
-const MainLayout = (props: Props) => {
+const MainLayout: React.FC<Props> = (props: Props) => {
     return (
         <>
             <TopBar />

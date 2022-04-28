@@ -2,8 +2,10 @@ $width: 76px;
 
 .button {
   width: $width;
-  padding: 8px 5px;
+  padding: 5px 8px;
   border: none;
+  
+  font-size: 12px;
 
   background-color: transparent;
 
@@ -17,10 +19,16 @@ $width: 76px;
 
 .buttonDrop {
   color: #ffffff;
+  position: relative;
 }
 
 .buttonSelect:hover {
   background: #F2F4FF;
+}
+
+.arrowImage {
+  position: absolute;
+  right: 0;
 }
 
 .wrap {

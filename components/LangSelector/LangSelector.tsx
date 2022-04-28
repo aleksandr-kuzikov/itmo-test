@@ -1,30 +1,29 @@
 import React, {useState} from "react";
 import Image from 'next/image'
-import flagRus from '../../public/Flag-RUS.svg'
-import flagEng from '../../public/Flag-ENG.svg'
-
+import arrowImg from '../../public/arrow.svg'
 import styles from './LangSelector.module.scss'
 import classNames from "classnames";
-
-enum Languages {
-    rus="Рус",
-    eng="Eng"
-}
+import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
+import {langSlice} from "../../store/reducers/langSlice";
+import {ILanguage} from "../../interfaces/ILanguage";
 
 const LangSelector: React.FC = () => {
+    const dispatch = useTypedDispatch()
 
-    const [lang, setLang] = useState<Languages>(Languages.rus)
+    const {languages, current} = useTypedSelector(state => state.langReducer)
 
-    const [isDrop, setIsDrop] = useState<boolean>(false)
+    const {setLang} = langSlice.actions
+
+    const [isDrop, setIsDrop] = useState(false)
 
     const dropBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setIsDrop(!isDrop)
     }
 
-    const changeLangHandler = (e: React.MouseEvent<HTMLButtonElement>, lang: Languages) => {
+    const changeLangHandler = (e: React.MouseEvent<HTMLButtonElement>, lang: ILanguage) => {
         e.preventDefault()
-        setLang(lang)
+        dispatch(setLang(lang))
         setIsDrop(false)
     }
 
@@ -32,15 +31,24 @@ const LangSelector: React.FC = () => {
         <div className={styles.wrap}>
             <button className={classNames([styles.button, styles.buttonDrop])}
                     onClick={dropBtnHandler}
-            ><Image src={flagRus} /><span className={styles.buttonText}>{lang}</span></button>
+            >
+                <Image src={current.imageUrl} />
+                <span className={styles.buttonText}>{current.label}</span>
+                <div className={styles.arrowImage}>
+                    <Image src={arrowImg} />
+                </div>
+            </button>
             {isDrop &&
                 <div className={styles.drop}>
-                    <button className={classNames([styles.button, styles.buttonSelect])}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => changeLangHandler(e, Languages.rus)}
-                    ><Image src={flagRus} /><span className={styles.buttonText}>{Languages.rus}</span></button>
-                    <button className={classNames([styles.button, styles.buttonSelect])}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => changeLangHandler(e, Languages.eng)}
-                    ><Image src={flagEng} /><span className={styles.buttonText}>{Languages.eng}</span></button>
+                    {languages.map(l => (
+                        <button key={l.id}
+                                className={classNames([styles.button, styles.buttonSelect])}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => changeLangHandler(e, l)}
+                        >
+                            <Image src={l.imageUrl} />
+                            <span className={styles.buttonText}>{l.label}</span>
+                        </button>
+                    ))}
                 </div>}
         </div>
     )

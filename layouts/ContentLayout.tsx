@@ -4,7 +4,7 @@ type Props = {
     children: React.ReactNode
 }
 
-const ContentLayout = (props: Props) => {
+const ContentLayout: React.FC<Props> = (props: Props) => {
     return(
         <div className={'contentLayout'}>
             {props.children}
